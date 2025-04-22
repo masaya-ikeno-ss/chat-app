@@ -20,12 +20,39 @@
 .side-bar-header {
   height: 100px;
   padding: 0 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.side-bar-user-name {
+  font-size: 16px;
+  color: #fafafa;
+}
+
+.side-bar-create-chat {
+  color: deepskyblue;
+  font-size: 10px;
+  padding: 14px;
+  border: 1px solid lightblue;
+  text-decoration: none;
 }
 
 .side-bar-main {
   background-color: #2f3e51;
   height: calc(100vh - 100px);
   padding: 0 20px;
+  /* overflow-x: hidden; */
+  overflow-y: scroll;
+}
+
+.side-bar-chat-name {
+  padding: 20px 0 40px 0;
+}
+
+.side-bar-chat-name-link {
+  text-decoration: none;
+  color: #fff;
 }
 /* -------------------- */
 
