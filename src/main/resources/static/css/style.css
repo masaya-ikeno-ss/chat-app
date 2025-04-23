@@ -28,6 +28,7 @@
 .side-bar-user-name {
   font-size: 16px;
   color: #fafafa;
+  text-decoration: none;
 }
 
 .side-bar-create-chat {
