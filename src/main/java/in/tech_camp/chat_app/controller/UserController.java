@@ -1,7 +1,12 @@
 package in.tech_camp.chat_app.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,10 +20,8 @@ import in.tech_camp.chat_app.form.LoginForm;
 import in.tech_camp.chat_app.form.UserForm;
 import in.tech_camp.chat_app.repository.UserRepository;
 import in.tech_camp.chat_app.service.UserService;
+import in.tech_camp.chat_app.validation.ValidationOrder;
 import lombok.AllArgsConstructor;
-
-
-
 
 @Controller
 @AllArgsConstructor
@@ -60,7 +63,25 @@ public class UserController {
   }
 
   @PostMapping("/user")
-  public String createUser(@ModelAttribute("userForm") UserForm userForm, Model model) {
+  public String createUser(
+    @ModelAttribute("userForm") @Validated(ValidationOrder.class) UserForm userForm, 
+    BindingResult result, 
+    Model model) {
+
+    userForm.validatePasswordConfirmation(result);
+    if (userRepository.existsByEmail(userForm.getEmail())) {
+      result.rejectValue("email", "null", "Email already exists");
+    }
+
+    if (result.hasErrors()) {
+      List<String> errorMessages = result.getAllErrors().stream()
+              .map(DefaultMessageSourceResolvable::getDefaultMessage)
+              .collect(Collectors.toList());
+
+      model.addAttribute("errorMessages", errorMessages);
+      model.addAttribute("userForm", userForm);
+      return "users/signUp";
+    }
 
     UserEntity userEntity = new UserEntity();
     userEntity.setName(userForm.getName());
@@ -79,10 +100,24 @@ public class UserController {
 
   @PostMapping("/users/{id}")
   public String updateUser(
-    @ModelAttribute("userForm") @Validated EditUserForm editUserForm,
+    @ModelAttribute("editUserForm") @Validated(ValidationOrder.class) EditUserForm editUserForm,
     @PathVariable("id") Integer id,
+    BindingResult result,
     Model model
     ) {
+      if (userRepository.existsByEmailWithoutThisId(editUserForm.getEmail(), id)) {
+        result.rejectValue("email", "null", "Email already exists");
+      }
+
+      if (result.hasErrors()) {
+        List<String> errorMessages = result.getAllErrors().stream()
+                                      .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                                      .collect(Collectors.toList());
+        model.addAttribute("errorMessages", errorMessages);
+        model.addAttribute("editUserForm", editUserForm);
+        return "users/edit";
+      }
+
       UserEntity user = userRepository.findById(id);
       user.setName(editUserForm.getName());
       user.setEmail(editUserForm.getEmail());
