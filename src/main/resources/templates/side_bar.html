@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="ja">
 <div th:fragment="side_bar">
   <div class="side-bar-header">
-    <h1 class="side-bar-user-name">Tom</h1>
+    <a th:href="@{/users/{userId}/edit(userId=${user.id})}" th:text="${user.name}" class="side-bar-user-name">ユーザー名</a>
     <a href="#" class="side-bar-create-chat">チャットを作成する</a>
   </div>
   <div class="side-bar-main">
