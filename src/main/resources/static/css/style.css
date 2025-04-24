@@ -9,6 +9,11 @@
   justify-content: space-around;
 }
 
+.wrapper-rooms {
+  display: flex;
+  justify-content: start;
+}
+
 /* サイドバー */
 
 .side_bar {

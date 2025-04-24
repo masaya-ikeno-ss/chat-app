@@ -32,6 +32,18 @@ public class RoomController {
   private final RoomRepository roomRepository;
   private final RoomUsersRepository roomUsersRepository;
 
+  @GetMapping("/")
+  public String index(@AuthenticationPrincipal CustomUserDetail currentUser, Model model) {
+    UserEntity user = userRepository.findById(currentUser.getId());
+    model.addAttribute("user", user);
+    List<RoomUsersEntity> roomUserEntities = roomUsersRepository.findByUserId(currentUser.getId());
+    List<RoomEntity> roomList = roomUserEntities.stream()
+        .map(RoomUsersEntity::getRoom)
+        .collect(Collectors.toList());
+    model.addAttribute("rooms", roomList);
+    return "rooms/index";
+  }
+
   @GetMapping("/rooms/new")
   public String showRoomNew(@AuthenticationPrincipal CustomUserDetail currentUser, Model model) {
     List<UserEntity> users = userRepository.findAllExcept(currentUser.getId());
