@@ -24,10 +24,10 @@
     </div>
   </div>
   <div class="main-chat-footer">
-    <form action="" class="chat-form">
+    <form th:action="@{/rooms/{roomId}/messages(roomId=${roomId})}" method="post" th:object="${messageForm}" class="chat-form">
       <div class="form">
         <div class="form-input">
-          <input class="form-message" placeholder= "type a message">
+          <input th:field="*{content}" class="form-message" placeholder= "type a message">
           <label class="form-image">
             <span class="image-file">画像</span>
             <input type="file" class="hidden">
