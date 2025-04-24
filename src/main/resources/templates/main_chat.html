@@ -12,7 +12,7 @@
     <div class="chat-content" th:each="message : ${messageEntities}">
       <div class="chat-username-date-box">
         <h1 class="chat-username" th:text="${message.user.name}">Tom</h1>
-        <p class="chat-date" th:text="${message.createdAt}">2021/05/10(Mon) 12:43:30</p>
+        <p class="chat-date" th:text="${#dates.format(message.createdAt, 'yyyy/MM/dd HH:mm:ss')}">2021/05/10(Mon) 12:43:30</p>
       </div>
       <p class="chat-text" th:text="${message.content}">おはよう</p>
     </div>
