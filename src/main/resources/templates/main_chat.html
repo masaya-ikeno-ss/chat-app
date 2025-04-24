@@ -4,7 +4,6 @@
   <div class="main-chat-header">
     <h1 class="main-chat-name" th:text="${roomEntity.name}">hogefuga</h1>
     <div class="fin-chat-box">
-      <!-- <a href="#" class="main-chat-fin-chat">チャットを終了する</a> -->
       <form th:action="@{/rooms/{roomId}/delete(roomId=${roomEntity.id})}" method="post">
         <input type="submit" value="チャットを終了する"/>
       </form>
@@ -22,13 +21,13 @@
   </div>
 
   <div class="main-chat-footer">
-    <form th:action="@{/rooms/{roomId}/messages(roomId=${roomEntity.id})}" method="post" th:object="${messageForm}" class="chat-form">
+    <form th:action="@{/rooms/{roomId}/messages(roomId=${roomEntity.id})}" method="post" th:object="${messageForm}" class="chat-form" enctype="multipart/form-data">
       <div class="form">
         <div class="form-input">
           <input th:field="*{content}" class="form-message" placeholder= "type a message">
           <label class="form-image">
             <span class="image-file">画像</span>
-            <input type="file" class="hidden">
+            <input type="file" th:field="*{image}" class="hidden">
           </label>
         </div>
         <input class="form-submit" type="submit" value="送信">
