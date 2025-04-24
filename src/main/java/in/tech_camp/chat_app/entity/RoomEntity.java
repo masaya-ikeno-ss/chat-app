@@ -13,4 +13,5 @@ public class RoomEntity {
   @NotBlank(message = "Room Name can't be blank",groups = ValidationPriority1.class)
   private String name;
   private List<RoomUsersEntity> roomUsersEntities;
+  private List<MessageEntity> messageEntities;
 }
