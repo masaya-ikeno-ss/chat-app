@@ -88,15 +88,23 @@
   align-items: center;
 }
 
-.main-chat-fin-chat {
+.fin-chat-box input[type="submit"] {
+  text-decoration: none;
+  border: 1px solid darkred;
   color: darkred;
-  /* font-size: 20px; */
+  background-color: #fff;
+  padding: 20px;
+  cursor: pointer;
+}
+
+/* .main-chat-fin-chat {
+  color: darkred;
   line-height: 20px;
   padding: 20px;
   margin-left: 40px;
   border: 1px solid darkred;
   text-decoration: none;
-}
+} */
 
 .main-chat-main {
   background-color: #fafafa;
