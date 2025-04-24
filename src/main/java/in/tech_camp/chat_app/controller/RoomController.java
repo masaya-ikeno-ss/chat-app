@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import in.tech_camp.chat_app.form.RoomForm;
 
-
 @Controller
 public class RoomController {
   @GetMapping("/rooms/new")
