@@ -7,22 +7,17 @@
       <a href="#" class="main-chat-fin-chat">チャットを終了する</a>
     </div>
   </div>
+
   <div class="main-chat-main">
-    <div class="chat-content">
+    <div class="chat-content" th:each="message : ${messageEntities}">
       <div class="chat-username-date-box">
-        <h1 class="chat-username">Tom</h1>
-        <p class="chat-date">2021/05/10(Mon) 12:43:30</p>
+        <h1 class="chat-username" th:text="${message.user.name}">Tom</h1>
+        <p class="chat-date" th:text="${message.createdAt}">2021/05/10(Mon) 12:43:30</p>
       </div>
-      <p class="chat-text">おはよう</p>
-    </div>
-    <div class="chat-content">
-      <div class="chat-username-date-box">
-        <h1 class="chat-username">Tom</h1>
-        <p class="chat-date">2021/05/30(Sun) 22:43:30</p>
-      </div>
-      <p class="chat-text">こんばんは</p>
+      <p class="chat-text" th:text="${message.content}">おはよう</p>
     </div>
   </div>
+
   <div class="main-chat-footer">
     <form th:action="@{/rooms/{roomId}/messages(roomId=${roomId})}" method="post" th:object="${messageForm}" class="chat-form">
       <div class="form">

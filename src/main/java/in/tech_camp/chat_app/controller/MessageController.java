@@ -46,6 +46,9 @@ public class MessageController {
     model.addAttribute("rooms", roomList);
     model.addAttribute("messageForm", new MessageForm());
     model.addAttribute("roomId", roomId);
+
+    List<MessageEntity> messageEntities = messageRepository.findByRoomId(roomId);
+    model.addAttribute("messageEntities", messageEntities);
     return "messages/index";
   }
 
