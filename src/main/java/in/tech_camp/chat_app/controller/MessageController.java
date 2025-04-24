@@ -45,7 +45,8 @@ public class MessageController {
         .collect(Collectors.toList());
     model.addAttribute("rooms", roomList);
     model.addAttribute("messageForm", new MessageForm());
-    model.addAttribute("roomId", roomId);
+    RoomEntity roomEntity = roomRepository.findById(roomId);
+    model.addAttribute("roomEntity", roomEntity);
 
     List<MessageEntity> messageEntities = messageRepository.findByRoomId(roomId);
     model.addAttribute("messageEntities", messageEntities);
