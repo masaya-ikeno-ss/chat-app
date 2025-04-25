@@ -25,4 +25,7 @@ public interface MessageRepository {
             one = @One(select = "in.tech_camp.chat_app.repository.UserRepository.findById"))
   })
   List<MessageEntity> findByRoomId(Integer roomId);
+
+  @Select("SELECT COUNT(*) FROM messages")
+  int count();
 }
